@@ -1,0 +1,195 @@
+name: Runtime demonstration
+
+# Manually dispatched evidence run. It performs the container lifecycle, registry
+# round-trip, rollback, layer-cache and failure-analysis exercises in a single job so the
+# log reads as one continuous demonstration. It publishes nothing.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  IMAGE: student-ml-api
+  REGISTRY_IMAGE: ghcr.io/maazbinusama65-cyber/student-ml-api
+
+jobs:
+  demonstrate:
+    name: Container lifecycle, registry round-trip and failure analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+
+      - name: Part 10 - Build the image locally
+        run: |
+          VERSION="$(cat VERSION)"
+          echo "VERSION file reports: ${VERSION}"
+          docker build \
+            --build-arg APP_VERSION="${VERSION}" \
+            --build-arg GIT_COMMIT="${GITHUB_SHA}" \
+            --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --build-arg SOURCE_REPOSITORY="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" \
+            -t "${IMAGE}:${VERSION}" .
+
+      - name: Part 10 - Run the container and verify /health
+        run: |
+          VERSION="$(cat VERSION)"
+          docker run -d --name student-ml-api -p 5000:5000 "${IMAGE}:${VERSION}"
+          for i in $(seq 1 15); do
+            curl -fsS http://localhost:5000/health && break || sleep 2
+          done
+          echo
+          echo "--- POST /predict ---"
+          curl -fsS -X POST http://localhost:5000/predict -H 'Content-Type: application/json' -d '{"value": 10}'
+          echo
+          echo "--- POST /predict with a missing field ---"
+          curl -s -o /dev/null -w 'HTTP %{http_code}\n' -X POST http://localhost:5000/predict -H 'Content-Type: application/json' -d '{}'
+
+      - name: Part 11 - docker images
+        run: docker images
+
+      - name: Part 11 - docker ps
+        run: docker ps
+
+      - name: Part 11 - docker logs
+        run: docker logs student-ml-api
+
+      - name: Part 11 - docker inspect
+        run: |
+          echo "Container ID:      $(docker inspect -f '{{.Id}}' student-ml-api)"
+          echo "Image ID:          $(docker inspect -f '{{.Image}}' student-ml-api)"
+          echo "Exposed port:      $(docker inspect -f '{{json .Config.ExposedPorts}}' student-ml-api)"
+          echo "Published ports:   $(docker inspect -f '{{json .NetworkSettings.Ports}}' student-ml-api)"
+          echo "Running command:   $(docker inspect -f '{{json .Config.Cmd}}' student-ml-api)"
+          echo "Working directory: $(docker inspect -f '{{.Config.WorkingDir}}' student-ml-api)"
+          echo "User:              $(docker inspect -f '{{.Config.User}}' student-ml-api)"
+
+      - name: Part 11 - docker exec
+        run: |
+          # -it is omitted because a workflow runner has no interactive TTY; the command
+          # executed inside the container is otherwise identical to docker exec -it ... sh.
+          docker exec student-ml-api sh -c 'echo "whoami: $(whoami)"; echo "pwd: $(pwd)"; ls -la'
+
+      - name: Part 23 - Verify OCI metadata labels on the image
+        run: |
+          VERSION="$(cat VERSION)"
+          docker image inspect "${IMAGE}:${VERSION}" -f '{{json .Config.Labels}}' | tr ',' '\n'
+
+      - name: Part 25 - Rebuild after changing only app.py
+        run: |
+          printf '\n# cache demonstration: application-only change\n' >> app.py
+          docker build -t "${IMAGE}:cache-app-change" . 2>&1 | tee app-change-build.log
+          echo "=== cached steps in this build ==="
+          grep -c 'CACHED' app-change-build.log || true
+          grep 'CACHED' app-change-build.log || true
+          git checkout -- app.py
+
+      - name: Part 25 - Rebuild after changing requirements.txt
+        run: |
+          printf '\n# cache demonstration: dependency change\n' >> requirements.txt
+          docker build -t "${IMAGE}:cache-req-change" . 2>&1 | tee req-change-build.log
+          echo "=== cached steps in this build ==="
+          grep -c 'CACHED' req-change-build.log || true
+          grep 'CACHED' req-change-build.log || true
+          echo "=== was the dependency layer re-executed? ==="
+          grep -E 'pip install|Collecting|Installing collected' req-change-build.log | head -5 || true
+          git checkout -- requirements.txt
+
+      - name: Part 17 - Delete the local image and pull it back from the registry
+        run: |
+          docker rm -f student-ml-api
+          docker rmi -f "${IMAGE}:$(cat VERSION)" "${IMAGE}:cache-app-change" "${IMAGE}:cache-req-change"
+          echo "=== local images after deletion ==="
+          docker images
+          echo "=== pulling the published artefact ==="
+          docker pull "${REGISTRY_IMAGE}:1.1.0"
+          docker image inspect "${REGISTRY_IMAGE}:1.1.0" -f 'RepoDigests: {{json .RepoDigests}}'
+          docker run -d --name student-ml-api-1-1-0 -p 5000:5000 "${REGISTRY_IMAGE}:1.1.0"
+          for i in $(seq 1 15); do
+            curl -fsS http://localhost:5000/health && break || sleep 2
+          done
+          echo
+
+      - name: Part 20 - Roll back to 1.0.0 using the registry only
+        run: |
+          echo "=== 1.1.0 is assumed to have a production issue; stop it ==="
+          docker rm -f student-ml-api-1-1-0
+          echo "=== no source change and no rebuild: pull the previous artefact ==="
+          docker pull "${REGISTRY_IMAGE}:1.0.0"
+          docker image inspect "${REGISTRY_IMAGE}:1.0.0" -f 'RepoDigests: {{json .RepoDigests}}'
+          docker run -d --name student-ml-api-1-0-0 -p 5000:5000 "${REGISTRY_IMAGE}:1.0.0"
+          for i in $(seq 1 15); do
+            curl -fsS http://localhost:5000/health && break || sleep 2
+          done
+          echo
+          echo "=== the rolled-back container reports the 1.0.0 health contract ==="
+          docker rm -f student-ml-api-1-0-0
+
+      - name: Part 26 - Failure - application bound to 127.0.0.1
+        run: |
+          set +e
+          docker run -d --name bad-bind -p 5000:5000 "${REGISTRY_IMAGE}:1.1.0" gunicorn --bind 127.0.0.1:5000 app:app
+          sleep 5
+          echo "=== symptom: request from the host ==="
+          curl -sS --max-time 5 http://localhost:5000/health
+          echo "curl exit code: $?"
+          echo "=== evidence: gunicorn is listening on the loopback interface only ==="
+          docker logs bad-bind 2>&1 | grep -i listening
+          echo "=== correction: bind to 0.0.0.0 ==="
+          docker rm -f bad-bind
+          docker run -d --name good-bind -p 5000:5000 "${REGISTRY_IMAGE}:1.1.0" gunicorn --bind 0.0.0.0:5000 app:app
+          sleep 5
+          curl -sS --max-time 5 http://localhost:5000/health
+          echo
+          docker rm -f good-bind
+
+      - name: Part 26 - Failure - wrong container port published
+        run: |
+          set +e
+          echo "=== symptom: publishing host 5000 to container port 8000, where nothing listens ==="
+          docker run -d --name wrong-port -p 5000:8000 "${REGISTRY_IMAGE}:1.1.0"
+          sleep 5
+          curl -sS --max-time 5 http://localhost:5000/health
+          echo "curl exit code: $?"
+          echo "=== evidence: the published mapping targets a port the application does not use ==="
+          docker port wrong-port
+          docker inspect -f '{{json .Config.ExposedPorts}}' wrong-port
+          echo "=== correction: publish the port the application actually listens on ==="
+          docker rm -f wrong-port
+          docker run -d --name right-port -p 5000:5000 "${REGISTRY_IMAGE}:1.1.0"
+          sleep 5
+          curl -sS --max-time 5 http://localhost:5000/health
+          echo
+          docker rm -f right-port
+
+      - name: Part 26 - Failure - missing dependency in the image
+        run: |
+          set +e
+          echo "flask==3.1.0" > requirements.broken.txt
+          sed -e 's|COPY requirements.txt ./|COPY requirements.broken.txt ./|' -e 's|-r requirements.txt|-r requirements.broken.txt|' Dockerfile > Dockerfile.broken
+          docker build -f Dockerfile.broken -t "${IMAGE}:missing-dep" .
+          docker run -d --name missing-dep "${IMAGE}:missing-dep"
+          sleep 5
+          echo "=== symptom: the container is not running ==="
+          docker ps -a --filter name=missing-dep --format '{{.Names}} {{.Status}}'
+          echo "=== evidence: the entrypoint binary is absent because gunicorn was never installed ==="
+          docker logs missing-dep 2>&1 | tail -5
+          docker rm -f missing-dep
+          rm -f requirements.broken.txt Dockerfile.broken
+
+      - name: Part 26 - Failure - Docker build failure from an unresolvable dependency
+        run: |
+          set +e
+          cp requirements.txt requirements.bogus.txt
+          echo "this-package-does-not-exist-mlops==9.9.9" >> requirements.bogus.txt
+          sed -e 's|COPY requirements.txt ./|COPY requirements.bogus.txt ./|' -e 's|-r requirements.txt|-r requirements.bogus.txt|' Dockerfile > Dockerfile.bogus
+          docker build -f Dockerfile.bogus -t "${IMAGE}:bogus" . 2>&1 | tail -15
+          echo "=== docker build exit status: ${PIPESTATUS[0]} (non-zero would fail the pipeline) ==="
+          rm -f requirements.bogus.txt Dockerfile.bogus
+
+      - name: Part 26 - Failure - invalid registry credentials
+        run: |
+          set +e
+          echo "invalid-token-value" | docker login ghcr.io -u maazbinusama65-cyber --password-stdin 2>&1 | tail -3
+          echo "=== docker login exit status: $? (a release job would stop here) ==="
