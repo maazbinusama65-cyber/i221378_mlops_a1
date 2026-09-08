@@ -79,5 +79,14 @@ short commit SHA.
 
 ## Branching policy
 
-`main` is protected. All work happens on feature branches and reaches `main` only through a
-pull request whose CI checks have passed.
+`main` is protected: pull requests are required, both CI checks must pass, the branch must
+be up to date, administrators are included, and force pushes and deletion are blocked. All
+work happens on feature branches and reaches `main` only through a reviewed pull request.
+
+## Delivery report
+
+[`docs/REPORT.md`](docs/REPORT.md) documents the pipeline as built, with the branch
+protection settings and the reasoning behind them, the merge strategy, the full
+traceability chain from pull request to image digest, the layer-cache measurements, the
+rollback demonstration and the failure analysis. Every value in it comes from this
+repository's own runs and registry.
