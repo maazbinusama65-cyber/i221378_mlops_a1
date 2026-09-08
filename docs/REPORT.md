@@ -248,9 +248,16 @@ produced it and `source` identifies where to find that commit. Here `138e091` is
 of `main` that the demonstration run built from, which is the merge commit of
 [#6](https://github.com/maazbinusama65-cyber/i221378_mlops_a1/pull/6).
 
-The images published to the registry carry the same labels, set from the released commit:
-the `1.1.0` image records `revision` `294e960b80619b33b14d9eb8088f530cd6d2ceb5`, the merge
-commit of [#2](https://github.com/maazbinusama65-cyber/i221378_mlops_a1/pull/2).
+The images published to the registry carry the same labels, set from the released commit.
+Read back from the GHCR manifest and config blob:
+
+| Published tag | `image.version` | `image.revision` | Merge commit of |
+| --- | --- | --- | --- |
+| `1.0.0` | `1.0.0` | `90d93d7e1b31dd08ae8488ca733da0715b147454` | [#1](https://github.com/maazbinusama65-cyber/i221378_mlops_a1/pull/1) |
+| `1.1.0` | `1.1.0` | `294e960b80619b33b14d9eb8088f530cd6d2ceb5` | [#2](https://github.com/maazbinusama65-cyber/i221378_mlops_a1/pull/2) |
+
+Each published artefact therefore names, from inside itself, the commit that produced it —
+closing the chain in section 8 from the artefact end as well as from the source end.
 
 ---
 
