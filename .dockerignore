@@ -1,0 +1,30 @@
+# Version control and CI definitions
+.git
+.gitignore
+.gitattributes
+.github
+
+# Python caches and build artefacts
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+.pytest_cache
+
+# Local environments and secrets
+.venv
+venv
+.env
+
+# Tests, docs and development-only dependencies are not part of the runtime image
+tests
+docs
+requirements-dev.txt
+*.md
+*.pdf
+
+# Editor and OS noise
+.vscode
+.idea
+.DS_Store
+Thumbs.db
