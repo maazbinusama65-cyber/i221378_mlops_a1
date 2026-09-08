@@ -191,7 +191,11 @@ jobs:
       - name: Part 26 - Failure - invalid registry credentials
         run: |
           set +e
-          # The status is read from PIPESTATUS, not $?, because $? after a pipeline reports
-          # the exit status of the last command in it (tail), not of docker login.
-          echo "invalid-token-value" | docker login ghcr.io -u maazbinusama65-cyber --password-stdin 2>&1 | tail -3
-          echo "=== docker login exit status: ${PIPESTATUS[0]} (a release job would stop here) ==="
+          # docker login is run on its own rather than inside a pipeline, so its exit status
+          # can be captured directly. Reading $? after a pipeline would report the status of
+          # the last command in that pipeline, and PIPESTATUS[0] would report the first.
+          docker login ghcr.io -u maazbinusama65-cyber --password-stdin > login.log 2>&1 <<< "invalid-token-value"
+          status=$?
+          tail -3 login.log
+          echo "=== docker login exit status: ${status} (a release job would stop here) ==="
+          rm -f login.log
