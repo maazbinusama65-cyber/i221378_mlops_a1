@@ -100,8 +100,8 @@ jobs:
         run: |
           docker rm -f student-ml-api
           docker rmi -f "${IMAGE}:$(cat VERSION)" "${IMAGE}:cache-app-change" "${IMAGE}:cache-req-change"
-          echo "=== local images after deletion ==="
-          docker images
+          echo "=== local images after deletion (filtered to this project) ==="
+          docker images | grep -E 'REPOSITORY|student-ml-api' || echo "no student-ml-api image remains locally"
           echo "=== pulling the published artefact ==="
           docker pull "${REGISTRY_IMAGE}:1.1.0"
           docker image inspect "${REGISTRY_IMAGE}:1.1.0" -f 'RepoDigests: {{json .RepoDigests}}'
@@ -191,5 +191,7 @@ jobs:
       - name: Part 26 - Failure - invalid registry credentials
         run: |
           set +e
+          # The status is read from PIPESTATUS, not $?, because $? after a pipeline reports
+          # the exit status of the last command in it (tail), not of docker login.
           echo "invalid-token-value" | docker login ghcr.io -u maazbinusama65-cyber --password-stdin 2>&1 | tail -3
-          echo "=== docker login exit status: $? (a release job would stop here) ==="
+          echo "=== docker login exit status: ${PIPESTATUS[0]} (a release job would stop here) ==="
