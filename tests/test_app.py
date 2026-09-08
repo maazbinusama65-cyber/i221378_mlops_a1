@@ -2,7 +2,7 @@
 
 import pytest
 
-from app import APPLICATION_NAME, APPLICATION_VERSION, app as flask_app
+from app import APPLICATION_NAME, APPLICATION_VERSION, MODEL_VERSION, app as flask_app
 
 
 @pytest.fixture()
@@ -19,7 +19,16 @@ def test_health_reports_healthy_status(client):
     data = response.get_json()
     assert data["status"] == "healthy"
     assert data["application"] == APPLICATION_NAME
-    assert data["version"] == APPLICATION_VERSION
+
+
+def test_health_reports_application_and_model_versions(client):
+    response = client.get("/health")
+
+    data = response.get_json()
+    assert data["application_version"] == APPLICATION_VERSION
+    assert data["model_version"] == MODEL_VERSION
+    # The application version is served from the VERSION file, not hard-coded in the app.
+    assert data["application_version"] == "1.1.0"
 
 
 def test_predict_returns_prediction_for_valid_input(client):
