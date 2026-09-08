@@ -5,12 +5,19 @@ workflow around the service (branching, pull-request gated CI, containerisation 
 versioned artefacts), not model performance.
 """
 
+import os
 from pathlib import Path
 
 from flask import Flask, jsonify, request
 
 APPLICATION_NAME = "student-ml-api"
 PREDICTION_COEFFICIENT = 2
+
+# The model version is deliberately independent of the application version: a model can be
+# replaced without an application change, and vice versa. It is overridable at deploy time
+# so the same image can serve a different model revision.
+DEFAULT_MODEL_VERSION = "model-1"
+MODEL_VERSION = os.environ.get("MODEL_VERSION", DEFAULT_MODEL_VERSION)
 
 VERSION_FILE = Path(__file__).resolve().parent / "VERSION"
 FALLBACK_VERSION = "0.0.0"
@@ -41,11 +48,12 @@ app = Flask(__name__)
 
 @app.get("/health")
 def health():
-    """Liveness probe reporting the identity and version of the running artefact."""
+    """Liveness probe reporting the identity, application version and model version."""
     return jsonify(
         status="healthy",
         application=APPLICATION_NAME,
-        version=APPLICATION_VERSION,
+        application_version=APPLICATION_VERSION,
+        model_version=MODEL_VERSION,
     )
 
 
