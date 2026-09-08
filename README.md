@@ -15,12 +15,12 @@ pipeline around the service, not model performance.
 
 | Method | Path       | Description                              |
 | ------ | ---------- | ---------------------------------------- |
-| GET    | `/health`  | Liveness probe reporting the running version |
+| GET    | `/health`  | Liveness probe reporting the application and model versions |
 | POST   | `/predict` | Returns a prediction for a numeric input |
 
 ```console
 $ curl http://localhost:5000/health
-{"application":"student-ml-api","status":"healthy","version":"1.0.0"}
+{"application":"student-ml-api","application_version":"1.1.0","model_version":"model-1","status":"healthy"}
 
 $ curl -X POST http://localhost:5000/predict -H 'Content-Type: application/json' -d '{"value": 10}'
 {"input":10,"prediction":20}
@@ -52,13 +52,18 @@ curl http://localhost:5000/health
 Published images are available from the GitHub Container Registry:
 
 ```bash
-docker pull ghcr.io/maazbinusama65-cyber/student-ml-api:1.0.0
+docker pull ghcr.io/maazbinusama65-cyber/student-ml-api:1.1.0
 ```
 
 Every published image carries OCI labels recording the version, the originating commit and
 the build date, so any running container can be traced back to its source.
 
 ## Versioning
+
+The application version and the model version are tracked separately. `VERSION` is the
+single source of truth for the application version; the model version is reported by
+`/health` and can be overridden per deployment with the `MODEL_VERSION` environment
+variable, so a model can change without an application release and vice versa.
 
 `VERSION` is the single source of truth for the application version. It is read by the
 application at runtime, and the release workflow refuses to publish unless the file matches
