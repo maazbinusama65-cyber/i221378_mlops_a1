@@ -1,0 +1,574 @@
+Local runtime demonstration
+Host:    Linux 7.0.0-31-generic
+Date:    2026-09-09T15:57:39Z
+Commit:  d4dd505052f76bfc9839f328ebda38b151826842
+Docker:  Docker version 29.4.1, build 055a478
+
+===================================================================
+Part 10 - Build the image locally
+===================================================================
+VERSION file reports: 1.1.0
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.08kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.12.7-slim-bookworm
+#2 DONE 4.3s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 437B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 2.75kB done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/python:3.12.7-slim-bookworm@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d
+#5 resolve docker.io/library/python:3.12.7-slim-bookworm@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d 0.1s done
+#5 DONE 0.1s
+
+#5 [1/6] FROM docker.io/library/python:3.12.7-slim-bookworm@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 0B / 13.63MB 0.2s
+#5 sha256:46271edb89aec00565d974118707aaded82928c7ea7cb0a2bcc94b1f17e17e3d 0B / 249B 0.2s
+#5 sha256:5e739003c33414360cf2cec9452e1935b1bfcae79f279c33009bf4c0d5596f52 0B / 3.32MB 0.2s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 0B / 28.23MB 0.2s
+#5 sha256:46271edb89aec00565d974118707aaded82928c7ea7cb0a2bcc94b1f17e17e3d 249B / 249B 1.5s done
+#5 sha256:5e739003c33414360cf2cec9452e1935b1bfcae79f279c33009bf4c0d5596f52 1.05MB / 3.32MB 2.3s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 2.10MB / 28.23MB 2.4s
+#5 sha256:5e739003c33414360cf2cec9452e1935b1bfcae79f279c33009bf4c0d5596f52 2.10MB / 3.32MB 2.6s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 0B / 13.63MB 5.3s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 1.05MB / 13.63MB 6.5s
+#5 sha256:5e739003c33414360cf2cec9452e1935b1bfcae79f279c33009bf4c0d5596f52 3.32MB / 3.32MB 6.3s done
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 4.19MB / 28.23MB 6.3s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 7.34MB / 28.23MB 6.8s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 9.44MB / 28.23MB 7.1s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 11.53MB / 28.23MB 7.2s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 13.63MB / 28.23MB 7.5s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 2.10MB / 13.63MB 7.8s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 17.83MB / 28.23MB 7.8s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 20.97MB / 28.23MB 8.3s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 23.07MB / 28.23MB 8.4s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 3.15MB / 13.63MB 8.9s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 25.17MB / 28.23MB 8.7s
+#5 sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 28.23MB / 28.23MB 8.9s done
+#5 extracting sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 4.19MB / 13.63MB 9.6s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 5.24MB / 13.63MB 10.2s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 6.29MB / 13.63MB 10.7s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 7.34MB / 13.63MB 11.0s
+#5 extracting sha256:bc0965b23a04fe7f2d9fb20f597008fcf89891de1c705ffc1c80483a1f098e4f 2.1s done
+#5 extracting sha256:5e739003c33414360cf2cec9452e1935b1bfcae79f279c33009bf4c0d5596f52
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 8.39MB / 13.63MB 11.3s
+#5 extracting sha256:5e739003c33414360cf2cec9452e1935b1bfcae79f279c33009bf4c0d5596f52 0.3s done
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 9.44MB / 13.63MB 11.6s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 10.49MB / 13.63MB 11.7s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 11.53MB / 13.63MB 12.0s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 12.58MB / 13.63MB 12.2s
+#5 sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 13.63MB / 13.63MB 12.2s done
+#5 extracting sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3
+#5 extracting sha256:5f86e0092844f78afa84a3b63059ea82e82fa93a28eedde55386370d924e8cf3 1.4s done
+#5 DONE 13.8s
+
+#5 [1/6] FROM docker.io/library/python:3.12.7-slim-bookworm@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d
+#5 extracting sha256:46271edb89aec00565d974118707aaded82928c7ea7cb0a2bcc94b1f17e17e3d 0.0s done
+#5 DONE 13.8s
+
+#6 [2/6] RUN useradd --create-home --uid 10001 appuser
+#6 DONE 0.8s
+
+#7 [3/6] WORKDIR /app
+#7 DONE 0.0s
+
+#8 [4/6] COPY requirements.txt ./
+#8 DONE 0.0s
+
+#9 [5/6] RUN pip install --no-cache-dir -r requirements.txt
+#9 3.460 Collecting Flask==3.1.0 (from -r requirements.txt (line 1))
+#9 4.297   Downloading flask-3.1.0-py3-none-any.whl.metadata (2.7 kB)
+#9 4.677 Collecting gunicorn==23.0.0 (from -r requirements.txt (line 2))
+#9 4.899   Downloading gunicorn-23.0.0-py3-none-any.whl.metadata (4.4 kB)
+#9 5.377 Collecting Werkzeug>=3.1 (from Flask==3.1.0->-r requirements.txt (line 1))
+#9 5.619   Downloading werkzeug-3.1.8-py3-none-any.whl.metadata (4.0 kB)
+#9 5.885 Collecting Jinja2>=3.1.2 (from Flask==3.1.0->-r requirements.txt (line 1))
+#9 6.133   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#9 6.342 Collecting itsdangerous>=2.2 (from Flask==3.1.0->-r requirements.txt (line 1))
+#9 6.544   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+#9 6.842 Collecting click>=8.1.3 (from Flask==3.1.0->-r requirements.txt (line 1))
+#9 7.058   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#9 7.289 Collecting blinker>=1.9 (from Flask==3.1.0->-r requirements.txt (line 1))
+#9 7.572   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+#9 7.967 Collecting packaging (from gunicorn==23.0.0->-r requirements.txt (line 2))
+#9 8.189   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+#9 9.104 Collecting MarkupSafe>=2.0 (from Jinja2>=3.1.2->Flask==3.1.0->-r requirements.txt (line 1))
+#9 9.320   Downloading markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+#9 9.610 Downloading flask-3.1.0-py3-none-any.whl (102 kB)
+#9 10.35 Downloading gunicorn-23.0.0-py3-none-any.whl (85 kB)
+#9 10.94 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#9 11.17 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#9 11.68 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#9 11.97 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#9 12.71 Downloading werkzeug-3.1.8-py3-none-any.whl (226 kB)
+#9 13.23 Downloading packaging-26.3-py3-none-any.whl (129 kB)
+#9 13.54 Downloading markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+#9 13.66 Installing collected packages: packaging, MarkupSafe, itsdangerous, click, blinker, Werkzeug, Jinja2, gunicorn, Flask
+#9 14.80 Successfully installed Flask-3.1.0 Jinja2-3.1.6 MarkupSafe-3.0.3 Werkzeug-3.1.8 blinker-1.9.0 click-8.5.0 gunicorn-23.0.0 itsdangerous-2.2.0 packaging-26.3
+#9 14.80 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#9 DONE 15.0s
+
+#10 [6/6] COPY --chown=appuser:appuser VERSION app.py ./
+#10 DONE 0.1s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 0.8s done
+#11 exporting manifest sha256:708a363d59971cccf4c5fcf6a90650ca44c4969e4e6f7d75c46a4760caf10acd done
+#11 exporting config sha256:b05fc28f31d62a219e9918f7b322a526d1f454edc340c7b14d943c76d218f468 done
+#11 exporting attestation manifest sha256:35f6333e71933a00ec94484a8e235c4cd8151caff15f3c84323e1f1134e7ada4 0.0s done
+#11 exporting manifest list sha256:fda484d65ede4a3342803e3e7d32bb10fe00855611f23f1a4adff41b1a8868e3 done
+#11 naming to docker.io/library/student-ml-api:1.1.0 done
+#11 unpacking to docker.io/library/student-ml-api:1.1.0
+#11 unpacking to docker.io/library/student-ml-api:1.1.0 0.2s done
+#11 DONE 1.1s
+
+===================================================================
+Part 10 - Run the container and verify /health
+===================================================================
+a27e4cef637ea5586da40fa14d93c13b60dd242f76caeaed88e314ce4c43804d
+curl: (56) Recv failure: Connection reset by peer
+{"application":"student-ml-api","application_version":"1.1.0","model_version":"model-1","status":"healthy"}
+
+--- POST /predict ---
+{"input":10,"prediction":20}
+
+--- POST /predict with a missing field ---
+HTTP 400
+
+===================================================================
+Part 11 - docker images
+===================================================================
+WARNING: This output is designed for human readability. For machine-readable output, please use --format.
+student-ml-api:1.1.0                fda484d65ede        195MB         47.3MB   U    
+
+===================================================================
+Part 11 - docker ps
+===================================================================
+CONTAINER ID   IMAGE                  COMMAND                  CREATED         STATUS                            PORTS                                         NAMES
+a27e4cef637e   student-ml-api:1.1.0   "gunicorn --bind 0.0…"   3 seconds ago   Up 2 seconds (health: starting)   0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp   student-ml-api
+
+===================================================================
+Part 11 - docker logs
+===================================================================
+[2026-09-09 15:58:17 +0000] [1] [INFO] Starting gunicorn 23.0.0
+[2026-09-09 15:58:17 +0000] [1] [INFO] Listening at: http://0.0.0.0:5000 (1)
+[2026-09-09 15:58:17 +0000] [1] [INFO] Using worker: sync
+[2026-09-09 15:58:17 +0000] [7] [INFO] Booting worker with pid: 7
+[2026-09-09 15:58:17 +0000] [8] [INFO] Booting worker with pid: 8
+172.17.0.1 - - [09/Sep/2026:15:58:18 +0000] "GET /health HTTP/1.1" 200 108 "-" "curl/8.5.0"
+172.17.0.1 - - [09/Sep/2026:15:58:18 +0000] "POST /predict HTTP/1.1" 200 29 "-" "curl/8.5.0"
+172.17.0.1 - - [09/Sep/2026:15:58:18 +0000] "POST /predict HTTP/1.1" 400 45 "-" "curl/8.5.0"
+
+===================================================================
+Part 11 - docker inspect
+===================================================================
+Container ID:      a27e4cef637ea5586da40fa14d93c13b60dd242f76caeaed88e314ce4c43804d
+Image ID:          sha256:fda484d65ede4a3342803e3e7d32bb10fe00855611f23f1a4adff41b1a8868e3
+Exposed port:      {"5000/tcp":{}}
+Published ports:   {"5000/tcp":[{"HostIp":"0.0.0.0","HostPort":"5000"},{"HostIp":"::","HostPort":"5000"}]}
+Running command:   ["gunicorn","--bind","0.0.0.0:5000","--workers","2","--access-logfile","-","app:app"]
+Working directory: /app
+User:              appuser
+
+===================================================================
+Part 11 - docker exec
+===================================================================
+whoami: appuser
+pwd: /app
+total 20
+drwxr-xr-x 1 root    root    4096 Sep  9 15:58 .
+drwxr-xr-x 1 root    root    4096 Sep  9 15:58 ..
+-rw-rw-r-- 1 appuser appuser    6 Sep  9 15:54 VERSION
+-rw-rw-r-- 1 appuser appuser 2599 Sep  9 15:54 app.py
+-rw-rw-r-- 1 root    root      30 Sep  9 15:54 requirements.txt
+
+===================================================================
+Part 23 - OCI metadata labels
+===================================================================
+{"org.opencontainers.image.created":"2026-09-09T15:57:40Z"
+"org.opencontainers.image.description":"Minimal ML inference service"
+"org.opencontainers.image.revision":"d4dd505052f76bfc9839f328ebda38b151826842"
+"org.opencontainers.image.source":"https://github.com/maazbinusama65-cyber/i221378_mlops_a1"
+"org.opencontainers.image.title":"student-ml-api"
+"org.opencontainers.image.version":"1.1.0"}
+
+===================================================================
+Part 25 - Rebuild after changing only app.py
+===================================================================
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.08kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12.7-slim-bookworm
+#2 DONE 0.9s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 437B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 2.75kB done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/python:3.12.7-slim-bookworm@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d
+#5 resolve docker.io/library/python:3.12.7-slim-bookworm@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d 0.0s done
+#5 DONE 0.1s
+
+#6 [2/6] RUN useradd --create-home --uid 10001 appuser
+#6 CACHED
+
+#7 [3/6] WORKDIR /app
+#7 CACHED
+
+#8 [4/6] COPY requirements.txt ./
+#8 CACHED
+
+#9 [5/6] RUN pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [6/6] COPY --chown=appuser:appuser VERSION app.py ./
+#10 DONE 0.1s
+
+#11 exporting to image
+#11 exporting layers 0.1s done
+#11 exporting manifest sha256:df14814e8677917e7dc2c0ad44071cb3fe45d8577ef0e34ee340c8143d5cf826 0.0s done
+#11 exporting config sha256:2e76e0276bf0a92f9ae571b6c53ce5bbc0167a111fe39de4dd36f328fe8f7b0e
+#11 exporting config sha256:2e76e0276bf0a92f9ae571b6c53ce5bbc0167a111fe39de4dd36f328fe8f7b0e 0.0s done
+#11 exporting attestation manifest sha256:6cefb8cdf46272c2f481fb2cc960422480713dd5383be4d444833bdffd9b546b 0.0s done
+#11 exporting manifest list sha256:5b121a09bc4807013ba77625e97bbbc980b9e4d32ef815cb278710b4a997ae07 done
+#11 naming to docker.io/library/student-ml-api:cache-app-change done
+#11 unpacking to docker.io/library/student-ml-api:cache-app-change 0.0s done
+#11 DONE 0.2s
+=== cached steps in this build ===
+4
+#6 CACHED
+#7 CACHED
+#8 CACHED
+#9 CACHED
+
+===================================================================
+Part 25 - Rebuild after changing requirements.txt
+===================================================================
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.08kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12.7-slim-bookworm
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 437B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 2.78kB 0.0s done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/python:3.12.7-slim-bookworm@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d
+#5 resolve docker.io/library/python:3.12.7-slim-bookworm@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d 0.1s done
+#5 DONE 0.1s
+
+#6 [2/6] RUN useradd --create-home --uid 10001 appuser
+#6 CACHED
+
+#7 [3/6] WORKDIR /app
+#7 CACHED
+
+#8 [4/6] COPY requirements.txt ./
+#8 DONE 0.1s
+
+#9 [5/6] RUN pip install --no-cache-dir -r requirements.txt
+#9 3.777 Collecting Flask==3.1.0 (from -r requirements.txt (line 1))
+#9 4.711   Downloading flask-3.1.0-py3-none-any.whl.metadata (2.7 kB)
+#9 5.040 Collecting gunicorn==23.0.0 (from -r requirements.txt (line 2))
+#9 5.237   Downloading gunicorn-23.0.0-py3-none-any.whl.metadata (4.4 kB)
+#9 5.673 Collecting Werkzeug>=3.1 (from Flask==3.1.0->-r requirements.txt (line 1))
+#9 6.064   Downloading werkzeug-3.1.8-py3-none-any.whl.metadata (4.0 kB)
+#9 6.324 Collecting Jinja2>=3.1.2 (from Flask==3.1.0->-r requirements.txt (line 1))
+#9 6.544   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#9 6.897 Collecting itsdangerous>=2.2 (from Flask==3.1.0->-r requirements.txt (line 1))
+#9 7.187   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+#9 7.509 Collecting click>=8.1.3 (from Flask==3.1.0->-r requirements.txt (line 1))
+#9 7.717   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#9 8.020 Collecting blinker>=1.9 (from Flask==3.1.0->-r requirements.txt (line 1))
+#9 8.196   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+#9 8.653 Collecting packaging (from gunicorn==23.0.0->-r requirements.txt (line 2))
+#9 8.925   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+#9 9.819 Collecting MarkupSafe>=2.0 (from Jinja2>=3.1.2->Flask==3.1.0->-r requirements.txt (line 1))
+#9 10.06   Downloading markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+#9 10.37 Downloading flask-3.1.0-py3-none-any.whl (102 kB)
+#9 10.88 Downloading gunicorn-23.0.0-py3-none-any.whl (85 kB)
+#9 11.08 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#9 11.29 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#9 11.55 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#9 11.72 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#9 12.11 Downloading werkzeug-3.1.8-py3-none-any.whl (226 kB)
+#9 12.73 Downloading packaging-26.3-py3-none-any.whl (129 kB)
+#9 13.14 Downloading markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+#9 13.26 Installing collected packages: packaging, MarkupSafe, itsdangerous, click, blinker, Werkzeug, Jinja2, gunicorn, Flask
+#9 14.37 Successfully installed Flask-3.1.0 Jinja2-3.1.6 MarkupSafe-3.0.3 Werkzeug-3.1.8 blinker-1.9.0 click-8.5.0 gunicorn-23.0.0 itsdangerous-2.2.0 packaging-26.3
+#9 14.37 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#9 DONE 14.6s
+
+#10 [6/6] COPY --chown=appuser:appuser VERSION app.py ./
+#10 DONE 0.1s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 0.9s done
+#11 exporting manifest sha256:8628afccac69de4e469a507a97669336c94cf458f870b62999d1138f11adc5cf 0.0s done
+#11 exporting config sha256:89a06130e59d5f8a02d54acb917a8d859f5e91029072943feeed289a4c093012 0.0s done
+#11 exporting attestation manifest sha256:80b42f455c43859fd879a44ad5d6ad2a69a44b404042875477a18968761d90de 0.0s done
+#11 exporting manifest list sha256:e9740e9fad5cee57bc03834060436c6047c424e3828a7123f28943a38d2ab6ad 0.0s done
+#11 naming to docker.io/library/student-ml-api:cache-req-change done
+#11 unpacking to docker.io/library/student-ml-api:cache-req-change
+#11 unpacking to docker.io/library/student-ml-api:cache-req-change 0.4s done
+#11 DONE 1.4s
+=== cached steps in this build ===
+2
+#6 CACHED
+#7 CACHED
+=== was the dependency layer re-executed? ===
+#9 [5/6] RUN pip install --no-cache-dir -r requirements.txt
+#9 13.26 Installing collected packages: packaging, MarkupSafe, itsdangerous, click, blinker, Werkzeug, Jinja2, gunicorn, Flask
+
+===================================================================
+Part 17 - Delete the local image and pull it back from the registry
+===================================================================
+student-ml-api
+Untagged: student-ml-api:1.1.0
+Deleted: sha256:fda484d65ede4a3342803e3e7d32bb10fe00855611f23f1a4adff41b1a8868e3
+Untagged: student-ml-api:cache-app-change
+Deleted: sha256:5b121a09bc4807013ba77625e97bbbc980b9e4d32ef815cb278710b4a997ae07
+Untagged: student-ml-api:cache-req-change
+Deleted: sha256:e9740e9fad5cee57bc03834060436c6047c424e3828a7123f28943a38d2ab6ad
+=== local images after deletion (filtered to this project) ===
+WARNING: This output is designed for human readability. For machine-readable output, please use --format.
+no student-ml-api image remains locally
+=== pulling the published artefact ===
+1.1.0: Pulling from maazbinusama65-cyber/student-ml-api
+44136fa355b3: Download complete
+a44ad10e226d: Pulling fs layer
+2e1d304cd0f2: Pulling fs layer
+e53f35a11fe4: Pulling fs layer
+f1116630d9ab: Pulling fs layer
+5824275e6bef: Pulling fs layer
+3c9f2d37e483: Download complete
+a44ad10e226d: Download complete
+5824275e6bef: Download complete
+f1116630d9ab: Download complete
+2e1d304cd0f2: Download complete
+f1116630d9ab: Pull complete
+2e1d304cd0f2: Pull complete
+e53f35a11fe4: Download complete
+5824275e6bef: Pull complete
+e53f35a11fe4: Pull complete
+a44ad10e226d: Pull complete
+Digest: sha256:6e7ce2289ebb6c1f15f4347d740a04601c8bb2cf166ac30f2b6a6969bf2ef621
+Status: Downloaded newer image for ghcr.io/maazbinusama65-cyber/student-ml-api:1.1.0
+ghcr.io/maazbinusama65-cyber/student-ml-api:1.1.0
+RepoDigests: ["ghcr.io/maazbinusama65-cyber/student-ml-api@sha256:6e7ce2289ebb6c1f15f4347d740a04601c8bb2cf166ac30f2b6a6969bf2ef621"]
+dd7d0048f90fe961a4dd78a9c94107e45c1c885dbf7cb296a25f5579b6ec5171
+curl: (56) Recv failure: Connection reset by peer
+{"application":"student-ml-api","application_version":"1.1.0","model_version":"model-1","status":"healthy"}
+
+
+===================================================================
+Part 20 - Roll back to 1.0.0 using the registry only
+===================================================================
+=== 1.1.0 is assumed to have a production issue; stop it ===
+student-ml-api-1-1-0
+=== no source change and no rebuild: pull the previous artefact ===
+1.0.0: Pulling from maazbinusama65-cyber/student-ml-api
+924b133f0002: Pulling fs layer
+f18f4e207add: Pulling fs layer
+37fa2c2f5f65: Pulling fs layer
+57ecbf3cc379: Pulling fs layer
+71b53a7032cd: Pulling fs layer
+44136fa355b3: Already exists
+98edbcc6e4b1: Download complete
+924b133f0002: Download complete
+37fa2c2f5f65: Download complete
+71b53a7032cd: Download complete
+f18f4e207add: Download complete
+924b133f0002: Pull complete
+71b53a7032cd: Pull complete
+57ecbf3cc379: Download complete
+37fa2c2f5f65: Pull complete
+f18f4e207add: Pull complete
+57ecbf3cc379: Pull complete
+Digest: sha256:af4ebd6d2bd246bd2f113ae7b015a711062e3b1b6313555fd920e6d36d0cb1e5
+Status: Downloaded newer image for ghcr.io/maazbinusama65-cyber/student-ml-api:1.0.0
+ghcr.io/maazbinusama65-cyber/student-ml-api:1.0.0
+RepoDigests: ["ghcr.io/maazbinusama65-cyber/student-ml-api@sha256:af4ebd6d2bd246bd2f113ae7b015a711062e3b1b6313555fd920e6d36d0cb1e5"]
+4256ee559c6d10835b28227e7f78c56be117fb1fdd094350a3780e673e8f30ac
+curl: (56) Recv failure: Connection reset by peer
+{"application":"student-ml-api","status":"healthy","version":"1.0.0"}
+
+=== the rolled-back container reports the 1.0.0 health contract ===
+student-ml-api-1-0-0
+
+===================================================================
+Part 26 - Failure - application bound to 127.0.0.1
+===================================================================
+1f2472aba3c7e51c994b65bce75db73de8e5f503c768ac7858edbfdfe86983e8
+=== symptom: request from the host ===
+curl: (56) Recv failure: Connection reset by peer
+curl exit code: 56
+=== evidence: gunicorn is listening on the loopback interface only ===
+[2026-09-09 15:59:01 +0000] [1] [INFO] Listening at: http://127.0.0.1:5000 (1)
+=== correction: bind to 0.0.0.0 ===
+bad-bind
+43d072a2ae40c82d9c496c7f8a0ceb867e844a957db23e698c1d10144caa8d09
+{"application":"student-ml-api","application_version":"1.1.0","model_version":"model-1","status":"healthy"}
+
+good-bind
+
+===================================================================
+Part 26 - Failure - wrong container port published
+===================================================================
+=== symptom: publishing host 5000 to container port 8000, where nothing listens ===
+bd6cc85c4a5d03229ed58a14543d15b360793e7c6eb670515b32b7fb91bc2de8
+curl: (56) Recv failure: Connection reset by peer
+curl exit code: 56
+=== evidence: the published mapping targets a port the application does not use ===
+8000/tcp -> 0.0.0.0:5000
+8000/tcp -> [::]:5000
+{"5000/tcp":{},"8000/tcp":{}}
+=== correction: publish the port the application actually listens on ===
+wrong-port
+daf7d7f7f7d35987ebbbe978a24b347048bdf10efcbc0732e28b90139fb40cb1
+{"application":"student-ml-api","application_version":"1.1.0","model_version":"model-1","status":"healthy"}
+
+right-port
+
+===================================================================
+Part 26 - Failure - missing dependency in the image
+===================================================================
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.broken
+#1 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile.broken
+#1 transferring dockerfile: 2.11kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12.7-slim-bookworm
+#2 DONE 1.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 437B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 119B 0.0s done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/python:3.12.7-slim-bookworm@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d
+#5 resolve docker.io/library/python:3.12.7-slim-bookworm@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d 0.1s done
+#5 DONE 0.1s
+
+#6 [2/6] RUN useradd --create-home --uid 10001 appuser
+#6 CACHED
+
+#7 [3/6] WORKDIR /app
+#7 CACHED
+
+#8 [4/6] COPY requirements.broken.txt ./
+#8 DONE 0.1s
+
+#9 [5/6] RUN pip install --no-cache-dir -r requirements.broken.txt
+#9 3.846 Collecting flask==3.1.0 (from -r requirements.broken.txt (line 1))
+#9 4.737   Downloading flask-3.1.0-py3-none-any.whl.metadata (2.7 kB)
+#9 5.250 Collecting Werkzeug>=3.1 (from flask==3.1.0->-r requirements.broken.txt (line 1))
+#9 5.500   Downloading werkzeug-3.1.8-py3-none-any.whl.metadata (4.0 kB)
+#9 5.768 Collecting Jinja2>=3.1.2 (from flask==3.1.0->-r requirements.broken.txt (line 1))
+#9 6.123   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#9 6.358 Collecting itsdangerous>=2.2 (from flask==3.1.0->-r requirements.broken.txt (line 1))
+#9 6.527   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+#9 6.852 Collecting click>=8.1.3 (from flask==3.1.0->-r requirements.broken.txt (line 1))
+#9 7.164   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#9 7.371 Collecting blinker>=1.9 (from flask==3.1.0->-r requirements.broken.txt (line 1))
+#9 7.556   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+#9 8.382 Collecting MarkupSafe>=2.0 (from Jinja2>=3.1.2->flask==3.1.0->-r requirements.broken.txt (line 1))
+#9 8.582   Downloading markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+#9 8.789 Downloading flask-3.1.0-py3-none-any.whl (102 kB)
+#9 9.404 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#9 9.611 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#9 10.28 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#9 10.59 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#9 11.15 Downloading werkzeug-3.1.8-py3-none-any.whl (226 kB)
+#9 11.73 Downloading markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+#9 11.83 Installing collected packages: MarkupSafe, itsdangerous, click, blinker, Werkzeug, Jinja2, flask
+#9 12.67 Successfully installed Jinja2-3.1.6 MarkupSafe-3.0.3 Werkzeug-3.1.8 blinker-1.9.0 click-8.5.0 flask-3.1.0 itsdangerous-2.2.0
+#9 12.67 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#9 DONE 12.9s
+
+#10 [6/6] COPY --chown=appuser:appuser VERSION app.py ./
+#10 DONE 0.1s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 0.6s done
+#11 exporting manifest sha256:a9ecf3341616ac6187292e92acf2bb5b8158629aeeaabe04118a451971d5258e 0.0s done
+#11 exporting config sha256:baa24820716c5ca2ce33cf56db94098fbaa03928862159c3248f238016e3a543 done
+#11 exporting attestation manifest sha256:8df88cc7df1ae18b552ef2c3974b77fe70ba8edb462de41f86535ae8ac8b26d8 0.0s done
+#11 exporting manifest list sha256:2c86bf1bfff9ced1105dbf4d0dc5ecd9f5c8c4fd819b866e6f5545909e7df69c done
+#11 naming to docker.io/library/student-ml-api:missing-dep done
+#11 unpacking to docker.io/library/student-ml-api:missing-dep
+#11 unpacking to docker.io/library/student-ml-api:missing-dep 0.2s done
+#11 DONE 0.9s
+775035804d25937110f2ce1333632732181d73f97858fafd61ec594896e921fe
+docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: exec: "gunicorn": executable file not found in $PATH
+
+Run 'docker run --help' for more information
+=== symptom: the container is not running ===
+missing-dep Created
+=== evidence: the entrypoint binary is absent because gunicorn was never installed ===
+missing-dep
+
+===================================================================
+Part 26 - Failure - Docker build failure from an unresolvable dependency
+===================================================================
+4.175   Downloading flask-3.1.0-py3-none-any.whl.metadata (2.7 kB)
+4.636 Collecting gunicorn==23.0.0 (from -r requirements.bogus.txt (line 2))
+5.170   Downloading gunicorn-23.0.0-py3-none-any.whl.metadata (4.4 kB)
+5.549 ERROR: Could not find a version that satisfies the requirement this-package-does-not-exist-mlops==9.9.9 (from versions: none)
+5.551 ERROR: No matching distribution found for this-package-does-not-exist-mlops==9.9.9
+------
+Dockerfile.bogus:17
+--------------------
+  15 |     # app.py reuses the cached dependency layer instead of reinstalling every package.
+  16 |     COPY requirements.bogus.txt ./
+  17 | >>> RUN pip install --no-cache-dir -r requirements.bogus.txt
+  18 |     
+  19 |     COPY --chown=appuser:appuser VERSION app.py ./
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c pip install --no-cache-dir -r requirements.bogus.txt" did not complete successfully: exit code: 1
+=== docker build exit status: 1 (non-zero would fail the pipeline) ===
+
+===================================================================
+Part 26 - Failure - invalid registry credentials
+===================================================================
+Error response from daemon: Get "https://ghcr.io/v2/": denied: denied
+=== docker login exit status: 1 (a release job would stop here) ===
+
+===================================================================
+Demonstration complete
+===================================================================
+Transcript written to: /home/maaz/GitHub/i221378_mlops_a1/docs/evidence/local-demonstration.log
